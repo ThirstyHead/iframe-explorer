@@ -7,10 +7,30 @@
     <meta name="author" content="Scott Davis <scott@thirstyhead.com>">
     <meta name="description" content="">
     <meta name="keywords" content="">
+
+    <script>
+      window.addEventListener('load', init);
+
+      function init(){
+        const testPage = document.querySelector('#test-page');
+        testPage.addEventListener('load', testPageListener);
+      }
+
+      function testPageListener(){
+        const testPageResults = document.querySelector('#test-page-results');
+        testPageResults.innerHTML = "Test page loaded."
+      }
+
+    </script>
   </head>
 
   <body>
     <h1>iframe explorer</h1>
+      <div id="test-page-results">
+        Test page results.
+      </div>
+
+
     <iframe src="https://www.fpacbc.usda.gov"
             id="original-page"
             width="45%"
