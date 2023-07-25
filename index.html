@@ -54,7 +54,10 @@
 
       function updateLighthouseReport(url){
         const baseUrl = "https://thirstyhead.com/unlighthouse-explorer/reports/mobile/2023-07-25_11-26-25/reports";
-        const path = url.replace('/index.html', '/index/lighthouse.html');
+        let path = url.replace('/index.html', '/index/lighthouse.html');
+        if(path == "/"){
+          path = "/index/lighthouse.html";
+        }
 
         const lighthouseReport = document.querySelector('#lighthouse-report');
         lighthouseReport.src = baseUrl + path;
