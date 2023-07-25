@@ -4,7 +4,9 @@
   "description": "Exploring iframes",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "testm": "unlighthouse-ci --site https://fpacbc.usda.gov --mobile  --output-path reports/mobile ",
+    "testd": "unlighthouse-ci --site https://fpacbc.usda.gov --desktop --output-path reports/desktop ",
+    "test":  "unlighthouse-ci --site https://fpacbc.usda.gov"
   },
   "author": "Scott Davis <scott@thirstyhead.com> (https://thirstyhead.com/)",
   "license": "CC-BY-4.0"

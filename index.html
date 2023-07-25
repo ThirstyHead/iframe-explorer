@@ -39,13 +39,36 @@
       window.addEventListener('load', init);
 
       function init(){
-        const testPage = document.querySelector('#test-page');
-        testPage.addEventListener('load', testPageListener);
+        fetchReports();
+
+        const select = document.querySelector('#lighthouse-url');
+        select.addEventListener("change", lighthouseReportListener);
       }
 
-      function testPageListener(){
-        const testPageResults = document.querySelector('#test-page-results');
-        testPageResults.innerHTML = "Test page loaded."
+      function lighthouseReportListener(event){
+        console.log(event);
+        console.log(event.srcElement.value);
+        const targetUrl = event.srcElement.value; 
+        updateLighthouseReport(targetUrl);
+      }
+
+      function updateLighthouseReport(url){
+        const baseUrl = "https://thirstyhead.com/unlighthouse-explorer/reports/mobile/2023-07-25_11-26-25/reports";
+        const path = url.replace('/index.html', '/index/lighthouse.html');
+
+        const lighthouseReport = document.querySelector('#lighthouse-report');
+        lighthouseReport.src = baseUrl + path;
+      }
+
+      async function fetchReports() {
+        const response = await fetch("https://thirstyhead.com/unlighthouse-explorer/reports/mobile/2023-07-25_11-26-25/ci-result.json");
+        const reports = await response.json();        
+        console.log(reports);
+
+        const select = document.querySelector('#lighthouse-url');
+        for(let item=0; item < reports.length; item++){
+          select.appendChild(new Option(`${reports[item].path}`, `${reports[item].path}`));
+        }
       }
 
     </script>
@@ -457,8 +480,12 @@
 
     <section class="right">
       <h2>Lighthouse Report</h2>
-      <iframe src="https://thirstyhead.com/unlighthouse-explorer/reports/lighthouse.html"
-              id="test-page"
+      <label for="lighthouse-url">URL</label>
+      <select id="lighthouse-url" 
+             name="lighthouse-url"></select>
+
+      <iframe src="https://thirstyhead.com/unlighthouse-explorer/reports/mobile/2023-07-25_11-26-25/reports/lighthouse.html"
+              id="lighthouse-report"
               width="100%"
               height="1000px"></iframe>
     </section>
