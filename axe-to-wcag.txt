@@ -1,0 +1,58 @@
+'accessibility': {
+      title: str_(UIStrings.a11yCategoryTitle),
+      description: str_(UIStrings.a11yCategoryDescription),
+      manualDescription: str_(UIStrings.a11yCategoryManualDescription),
+      // Audit weights are meant to match the aXe scoring system of
+      // minor, serious, and critical.
+      // See the audits listed at dequeuniversity.com/rules/axe/3.2.
+      // Click on an audit and check the right hand column to see its severity.
+      auditRefs: [
+        {id: 'accesskeys', weight: 3, group: 'a11y-navigation'}, //https://dequeuniversity.com/rules/axe/3.5/accesskeys - Best Practice
+        {id: 'aria-allowed-attr', weight: 10, group: 'a11y-aria'}, //https://dequeuniversity.com/rules/axe/3.5/aria-allowed-attr - WCAG A
+        {id: 'aria-required-attr', weight: 10, group: 'a11y-aria'}, //https://dequeuniversity.com/rules/axe/3.5/aria-required-attr - WCAG A
+        {id: 'aria-required-children', weight: 10, group: 'a11y-aria'}, //https://dequeuniversity.com/rules/axe/3.5/aria-required-children - WCAG A
+        {id: 'aria-required-parent', weight: 10, group: 'a11y-aria'}, //https://dequeuniversity.com/rules/axe/3.5/aria-required-parent - WCAG A
+        {id: 'aria-roles', weight: 10, group: 'a11y-aria'}, //https://dequeuniversity.com/rules/axe/3.5/aria-roles - WCAG A
+        {id: 'aria-valid-attr-value', weight: 10, group: 'a11y-aria'}, //https://dequeuniversity.com/rules/axe/3.5/aria-valid-attr-value - WCAG A
+        {id: 'aria-valid-attr', weight: 10, group: 'a11y-aria'}, //https://dequeuniversity.com/rules/axe/3.5/aria-valid-attr - WCAG A
+        {id: 'audio-caption', weight: 10, group: 'a11y-audio-video'}, //https://dequeuniversity.com/rules/axe/3.5/audio-caption - Section 508 must
+        {id: 'button-name', weight: 10, group: 'a11y-names-labels'}, //https://dequeuniversity.com/rules/axe/3.5/button-name - Section 508 must
+        {id: 'bypass', weight: 3, group: 'a11y-navigation'}, //https://dequeuniversity.com/rules/axe/3.5/bypassWCAG - Section 508 must
+        {id: 'color-contrast', weight: 3, group: 'a11y-color-contrast'}, //https://dequeuniversity.com/rules/axe/3.5/color-contrast - WCAG AA
+        {id: 'definition-list', weight: 3, group: 'a11y-tables-lists'}, //https://dequeuniversity.com/rules/axe/3.5/definition-list - WCAG A
+        {id: 'dlitem', weight: 3, group: 'a11y-tables-lists'}, //https://dequeuniversity.com/rules/axe/3.5/dlitem - WCAG A
+        {id: 'document-title', weight: 3, group: 'a11y-names-labels'}, //https://dequeuniversity.com/rules/axe/3.5/document-title - WCAG A
+        {id: 'duplicate-id', weight: 1, group: 'a11y-best-practices'}, //https://dequeuniversity.com/rules/axe/3.5/duplicate-id - WCAG A
+        {id: 'frame-title', weight: 3, group: 'a11y-names-labels'}, //https://dequeuniversity.com/rules/axe/3.5/frame-title - Section 508 must
+        {id: 'html-has-lang', weight: 3, group: 'a11y-language'}, //https://dequeuniversity.com/rules/axe/3.5/html-has-lang - WCAG A
+        {id: 'html-lang-valid', weight: 3, group: 'a11y-language'}, //https://dequeuniversity.com/rules/axe/3.5/html-lang-valid - WCAG A
+        {id: 'image-alt', weight: 10, group: 'a11y-names-labels'}, //https://dequeuniversity.com/rules/axe/3.5/image-alt - Section 508 must
+        {id: 'input-image-alt', weight: 10, group: 'a11y-names-labels'}, //https://dequeuniversity.com/rules/axe/3.5/input-image-alt - Section 509 must
+        {id: 'label', weight: 10, group: 'a11y-names-labels'}, //https://dequeuniversity.com/rules/axe/3.5/label - Section 508 must
+        {id: 'layout-table', weight: 3, group: 'a11y-tables-lists'}, //https://dequeuniversity.com/rules/axe/3.5/layout-table - WCAG A
+        {id: 'link-name', weight: 3, group: 'a11y-names-labels'}, //https://dequeuniversity.com/rules/axe/3.5/link-name - Section 508 must
+{id: 'list', weight: 3, group: 'a11y-tables-lists'}, //https://dequeuniversity.com/rules/axe/3.5/list - WCAG A
+        {id: 'listitem', weight: 3, group: 'a11y-tables-lists'}, //https://dequeuniversity.com/rules/axe/3.5/listitem - WCAG A
+        {id: 'meta-refresh', weight: 10, group: 'a11y-best-practices'}, //https://dequeuniversity.com/rules/axe/3.5/meta-refresh - WCAG AA
+        {id: 'meta-viewport', weight: 10, group: 'a11y-best-practices'}, //https://dequeuniversity.com/rules/axe/3.5/meta-viewport - Best Practice
+        {id: 'object-alt', weight: 3, group: 'a11y-names-labels'}, //https://dequeuniversity.com/rules/axe/3.5/object-alt - Section 508 must
+        {id: 'tabindex', weight: 3, group: 'a11y-navigation'}, //https://dequeuniversity.com/rules/axe/3.5/tabindex - Best Practice
+        {id: 'td-headers-attr', weight: 3, group: 'a11y-tables-lists'}, //https://dequeuniversity.com/rules/axe/3.5/td-headers-attr - Section 508 must
+        {id: 'th-has-data-cells', weight: 3, group: 'a11y-tables-lists'}, //https://dequeuniversity.com/rules/axe/3.5/th-has-data-cells - Section 508 must
+        {id: 'valid-lang', weight: 3, group: 'a11y-language'}, //https://dequeuniversity.com/rules/axe/3.5/valid-lang - WCAG AA
+        {id: 'video-caption', weight: 10, group: 'a11y-audio-video'}, //https://dequeuniversity.com/rules/axe/3.5/video-caption - WCAG AA
+        {id: 'video-description', weight: 10, group: 'a11y-audio-video'}, // not in Axe 3.5,latest is 3.3 - https://dequeuniversity.com/rules/axe/3.3/video-description - WCAG AA
+        // Manual audits
+        {id: 'logical-tab-order', weight: 0},
+        {id: 'focusable-controls', weight: 0},
+        {id: 'interactive-element-affordance', weight: 0},
+        {id: 'managed-focus', weight: 0},
+        {id: 'focus-traps', weight: 0},
+        {id: 'custom-controls-labels', weight: 0},
+        {id: 'custom-controls-roles', weight: 0},
+        {id: 'visual-order-follows-dom', weight: 0},
+        {id: 'offscreen-content-hidden', weight: 0},
+        {id: 'heading-levels', weight: 0},
+        {id: 'use-landmarks', weight: 0},
+], } 
+
