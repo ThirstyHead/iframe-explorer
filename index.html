@@ -49,6 +49,9 @@
         const lighthouseType = document.querySelector('#lighthouse-type');
         lighthouseType.addEventListener("change", lighthouseReportListener);
 
+        const lighthouseDate = document.querySelector('#lighthouse-date');
+        lighthouseDate.addEventListener("change", lighthouseReportListener);
+
         //window.addEventListener("LighthouseUpdate", debugListener);
       }
 
@@ -64,7 +67,7 @@
         // "https://thirstyhead.com/unlighthouse-explorer/reports/mobile/2023-07-25/reports";
         const baseUrl = "https://thirstyhead.com/unlighthouse-explorer/reports";
         const reportType = document.querySelector('#lighthouse-type').value; // "mobile" or "desktop"
-        const dateStamp = "2023-07-25"; // yyyy-mm-dd
+        const dateStamp = document.querySelector('#lighthouse-date').value; // "2023-07-25"
         const reportUrl = `${baseUrl}/${reportType}/${dateStamp}/reports`;
 
         // change path from audited webpage to html lighthouse report
@@ -104,7 +107,7 @@
         // https://thirstyhead.com/unlighthouse-explorer/reports/mobile/2023-07-25/ci-result.json
         const baseUrl = "https://thirstyhead.com/unlighthouse-explorer/reports";
         const reportType = document.querySelector('#lighthouse-type').value; // "mobile" or "desktop"
-        const dateStamp = "2023-07-25"; // yyyy-mm-dd
+        const dateStamp = document.querySelector('#lighthouse-date').value; // "2023-07-25"
         const reportUrl = `${baseUrl}/${reportType}/${dateStamp}/ci-result.json`;
 
         const response = await fetch(reportUrl);
