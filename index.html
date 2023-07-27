@@ -43,28 +43,32 @@
       function init(){
         fetchReports();
 
-        const select = document.querySelector('#lighthouse-url');
-        select.addEventListener("change", lighthouseReportListener);
+        const lighthouseUrl = document.querySelector('#lighthouse-url');
+        lighthouseUrl.addEventListener("change", lighthouseReportListener);
+
+        const lighthouseType = document.querySelector('#lighthouse-type');
+        lighthouseType.addEventListener("change", lighthouseReportListener);
+
         //window.addEventListener("LighthouseUpdate", debugListener);
       }
 
       function lighthouseReportListener(event){
-        updateLighthouseReport(event.srcElement.value);
+        updateLighthouseReport();
       }
 
       /**
        * Display/Update Lighthouse HTML report in iframe
-       * 
-       * @param url path to audited webpage (Example: '/about/index.html') 
+       * based on form values in html page
        */
-      function updateLighthouseReport(url){
+      function updateLighthouseReport(){
         // "https://thirstyhead.com/unlighthouse-explorer/reports/mobile/2023-07-25/reports";
-        const baseUrl = "https://thirstyhead.com/unlighthouse-explorer/reports/";
-        const reportType = "mobile"; // mobile or desktop
+        const baseUrl = "https://thirstyhead.com/unlighthouse-explorer/reports";
+        const reportType = document.querySelector('#lighthouse-type').value; // "mobile" or "desktop"
         const dateStamp = "2023-07-25"; // yyyy-mm-dd
         const reportUrl = `${baseUrl}/${reportType}/${dateStamp}/reports`;
 
         // change path from audited webpage to html lighthouse report
+        let url = document.querySelector('#lighthouse-url').value; 
         let path = url.replace('/index.html', '/index/lighthouse.html');
         if(path == "/"){
           path = "/index/lighthouse.html";
@@ -98,8 +102,8 @@
        */
       async function fetchReports() {
         // https://thirstyhead.com/unlighthouse-explorer/reports/mobile/2023-07-25/ci-result.json
-        const baseUrl = "https://thirstyhead.com/unlighthouse-explorer/reports/";
-        const reportType = "mobile"; // mobile or desktop
+        const baseUrl = "https://thirstyhead.com/unlighthouse-explorer/reports";
+        const reportType = document.querySelector('#lighthouse-type').value; // "mobile" or "desktop"
         const dateStamp = "2023-07-25"; // yyyy-mm-dd
         const reportUrl = `${baseUrl}/${reportType}/${dateStamp}/ci-result.json`;
 
@@ -522,9 +526,24 @@
 
     <section class="right">
       <h2>Lighthouse Report</h2>
-      <label for="lighthouse-url">URL</label>
-      <select id="lighthouse-url" 
-             name="lighthouse-url"></select>
+      <fieldset>
+        <legend>Choose Page</legend>
+        <label for="lighthouse-type">Type</label>
+        <select id="lighthouse-type">
+          <option value="mobile" selected>Mobile</option>
+          <option value="desktop">Desktop</option>
+        </select>
+        <br>       
+
+        <label for="lighthouse-date">Date</label>
+        <input id="lighthouse-date"
+               type="text"
+               value="2023-07-25">
+        <br>
+
+        <label for="lighthouse-url">URL</label>
+        <select id="lighthouse-url"></select>
+      </fieldset>
 
       <iframe src="https://thirstyhead.com/unlighthouse-explorer/reports/mobile/2023-07-25/reports/lighthouse.html"
               id="lighthouse-report"
