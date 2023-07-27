@@ -41,7 +41,8 @@
       window.addEventListener('load', init);
 
       function init(){
-        fetchReports();
+        fetchAvailableReports();
+        // fetchAvailableDates();
 
         const lighthouseUrl = document.querySelector('#lighthouse-url');
         lighthouseUrl.addEventListener("change", lighthouseReportListener);
@@ -108,7 +109,7 @@
       /**
        * Fetches json list of all available webpages with Lighthouse audits reports (HTML and JSON)
        */
-      async function fetchReports() {
+      async function fetchAvailableReports() {
         // https://thirstyhead.com/unlighthouse-explorer/reports/mobile/2023-07-25/ci-result.json
         const baseUrl = getBaseUrl();
         const reportUrl = `${baseUrl}/ci-result.json`;
