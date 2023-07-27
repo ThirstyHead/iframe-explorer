@@ -53,11 +53,15 @@
         const lighthouseDate = document.querySelector('#lighthouse-date');
         lighthouseDate.addEventListener("change", lighthouseReportListener);
 
-        //window.addEventListener("LighthouseUpdate", debugListener);
+        window.addEventListener("LighthouseUpdate", lighthouseUpdateListener);
       }
 
       function lighthouseReportListener(event){
         updateLighthouseReport();
+      }
+
+      function lighthouseUpdateListener(event){
+        updateWcagReport();
       }
 
       function getBaseUrl(){
@@ -121,6 +125,21 @@
         select.innerHTML = "";
         for(let page=0; page < reports.length; page++){
           select.appendChild(new Option(`${reports[page].path}`, `${reports[page].path}`));
+        }
+      }
+
+      function updateWcagReport(){
+        const rules = {
+          "link-name": ["2.4.4", "4.1.2"]
+        };
+
+        for(const rule in rules){
+          for(const sc of rules[rule]){
+            let details = document.querySelector(`details[data-sc="${sc}"]`);
+            let p = document.createElement('p');
+            p.append(rule);
+            details.appendChild(p);
+          }
         }
       }
 
