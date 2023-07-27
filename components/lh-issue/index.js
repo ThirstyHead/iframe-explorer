@@ -1,31 +1,12 @@
 class LhIssue extends HTMLElement{
     constructor(){
       super();
-      this.LIGHTHOUSE = undefined;
-      this.listener = this.lighthouseListener.bind(this);
-
-      this.title = 'title';
-      this.description = 'description';
     }
   
     connectedCallback(){      
       let shadowRoot = this.attachShadow({mode:'open'});
       shadowRoot.appendChild(this.styleBlock);
       shadowRoot.appendChild(this.bodyBlock);
-
-      window.addEventListener("LighthouseUpdate", this.listener);
-      console.log('connectedCallback');
-    }
-
-    lighthouseListener(event){
-        this.LIGHTHOUSE = window.__LIGHTHOUSE_JSON__;
-        //console.log(this.LIGHTHOUSE.audits[this.rule].title);
-        this.title = this.LIGHTHOUSE.audits[this.rule].title;
-        this.description = this.LIGHTHOUSE.audits[this.rule].description;
-    }
-  
-    get rule(){
-        return this.getAttribute('rule');
     }
 
     get styleBlock(){
@@ -41,9 +22,10 @@ class LhIssue extends HTMLElement{
       let bodyBlock = document.createElement('div');
 
       bodyBlock.innerHTML = `
-        <p>Source: Lighthouse</p>
-        <p>${this.title}</p>
-        <p>${this.description}</p>
+        <p class="source">Source: Lighthouse</p>
+        <p class="title">title</p>
+        <p class="description">description</p>
+        <p class="score">score</p>
       `;
   
       return bodyBlock;
