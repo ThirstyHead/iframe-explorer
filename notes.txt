@@ -1,3 +1,7 @@
 WCAG 
 https://www.w3.org/WAI/WCAG21/quickref/?showtechniques=111
 
+Lighthouse to Axe WCAG mapping
+https://dequeuniversity.com/rules/axe/4.4/
+
+
