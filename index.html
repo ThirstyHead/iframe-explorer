@@ -136,9 +136,23 @@
         for(const rule in rules){
           for(const sc of rules[rule]){
             let details = document.querySelector(`details[data-sc="${sc}"]`);
-            let p = document.createElement('p');
-            p.append(rule);
-            details.appendChild(p);
+            let lighthouse = window.__LIGHTHOUSE_JSON__.audits[rule];            
+            
+            let div = document.createElement('div');
+            div.setAttribute('data-lighthouse', rule);
+            
+            let pTitle = document.createElement('p');
+            pTitle.setAttribute('data-title', lighthouse.id);
+            pTitle.innerHTML = lighthouse.title;
+            div.append(pTitle);
+
+            let pDescription = document.createElement('p');
+            pDescription.setAttribute('data-description', lighthouse.id);
+            pDescription.innerHTML = lighthouse.description;
+            div.append(pDescription);
+
+
+            details.appendChild(div);
           }
         }
       }
