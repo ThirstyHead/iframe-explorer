@@ -4,4 +4,9 @@ https://www.w3.org/WAI/WCAG21/quickref/?showtechniques=111
 Lighthouse to Axe WCAG mapping
 https://dequeuniversity.com/rules/axe/4.4/
 
+Data URLs
+https://skywarditsolutions.github.io/508-cns-data/reports/
+index.html
+index.json
+
 

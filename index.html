@@ -36,6 +36,14 @@
         height: 1000px;
         display: inline-block;
       }
+
+      .pass{
+        color: green;
+      }
+
+      .fail{
+        color: red;
+      }
     </style>
     <script>
       window.addEventListener('load', init);
@@ -138,12 +146,33 @@
             let details = document.querySelector(`details[data-sc="${sc}"]`);
             let lighthouse = window.__LIGHTHOUSE_JSON__.audits[rule];            
             
+            let passFail = lighthouse.score == 1;
+            if(passFail == false){
+              details.setAttribute('open', '');              
+            }
+
             let div = document.createElement('div');
             div.setAttribute('data-lighthouse', rule);
+
+            let pPassFail = document.createElement('p');
+            pPassFail.setAttribute('data-score', lighthouse.score);
+            if(passFail == true){
+              pPassFail.classList.add('pass'); 
+              pPassFail.innerHTML = "Pass";             
+            }else{
+              pPassFail.classList.add('fail');
+              pPassFail.innerHTML = "Fail";
+            }
+            div.append(pPassFail);
             
             let pTitle = document.createElement('p');
             pTitle.setAttribute('data-title', lighthouse.id);
             pTitle.innerHTML = lighthouse.title;
+            if(passFail == true){
+              pTitle.classList.add('pass');              
+            }else{
+              pTitle.classList.add('fail');
+            }
             div.append(pTitle);
 
             let pDescription = document.createElement('p');
