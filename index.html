@@ -160,6 +160,8 @@
               let top = document.querySelector(`details[data-sc="${scParts[0]}"]`);
               top.setAttribute('open', '');
               //top.classList.add('fail');
+            }else{
+              details.classList.add('pass');
             }
 
             let div = document.createElement('div');
@@ -198,10 +200,22 @@
       }
 
       function resetWcagReport(){
+        // close all open
         let open = document.querySelectorAll("details[open]");
-        console.log(open);
         open.forEach((element) => {
           element.removeAttribute('open');
+        });
+
+        // remove pass/fail styling
+        let fails = document.querySelectorAll("details.fail");
+        fails.forEach((element) => {
+          element.classList.remove('fail');
+        });
+
+        // remove any lighthouse divs from wcag
+        let lh = document.querySelectorAll("div[data-lighthouse]");
+        lh.forEach((element) => {
+          element.remove();
         });
 
       }
