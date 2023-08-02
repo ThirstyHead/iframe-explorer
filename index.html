@@ -139,7 +139,8 @@
 
       function updateWcagReport(){
         const rules = {
-          "link-name": ["2.4.4", "4.1.2"]
+          "link-name": ["2.4.4", "4.1.2"],
+          "aria-valid-attr": ["4.1.2"]
         };
 
         for(const rule in rules){
@@ -191,6 +192,11 @@
             let pDescription = document.createElement('p');
             pDescription.setAttribute('data-description', lighthouse.id);
             pDescription.innerHTML = lighthouse.description;
+            if(passFail == true){
+              pDescription.classList.add('pass');              
+            }else{
+              pDescription.classList.add('fail');
+            }
             div.append(pDescription);
 
 
