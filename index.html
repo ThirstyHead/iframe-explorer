@@ -206,11 +206,18 @@
           element.removeAttribute('open');
         });
 
-        // remove pass/fail styling
+        // remove fail styling
         let fails = document.querySelectorAll("details.fail");
         fails.forEach((element) => {
           element.classList.remove('fail');
         });
+
+        // remove pass styling
+        let passes = document.querySelectorAll("details.pass");
+        passes.forEach((element) => {
+          element.classList.remove('pass');
+        });
+
 
         // remove any lighthouse divs from wcag
         let lh = document.querySelectorAll("div[data-lighthouse]");
