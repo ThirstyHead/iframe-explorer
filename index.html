@@ -69,6 +69,7 @@
       }
 
       function lighthouseUpdateListener(event){
+        resetWcagReport();
         updateWcagReport();
       }
 
@@ -194,6 +195,15 @@
             details.appendChild(div);
           }
         }
+      }
+
+      function resetWcagReport(){
+        let open = document.querySelectorAll("details[open]");
+        console.log(open);
+        open.forEach((element) => {
+          element.removeAttribute('open');
+        });
+
       }
 
     </script>
