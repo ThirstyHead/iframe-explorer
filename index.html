@@ -146,9 +146,19 @@
             let details = document.querySelector(`details[data-sc="${sc}"]`);
             let lighthouse = window.__LIGHTHOUSE_JSON__.audits[rule];            
             
+            let scParts = sc.split('.');
             let passFail = lighthouse.score == 1;
             if(passFail == false){
-              details.setAttribute('open', '');              
+              details.setAttribute('open', '');
+              details.classList.add('fail');
+
+              let mid = document.querySelector(`details[data-sc="${scParts[0]}.${scParts[1]}"]`);
+              mid.setAttribute('open', '');
+              //mid.classList.add('fail');
+
+              let top = document.querySelector(`details[data-sc="${scParts[0]}"]`);
+              top.setAttribute('open', '');
+              //top.classList.add('fail');
             }
 
             let div = document.createElement('div');
