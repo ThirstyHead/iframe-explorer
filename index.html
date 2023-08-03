@@ -49,24 +49,46 @@
       window.addEventListener('load', init);
 
       function init(){
+        fetchAvailableDates();
         fetchAvailableReports();
-        // fetchAvailableDates();
+        updateLighthouseReport();
 
-        const lighthouseUrl = document.querySelector('#lighthouse-url');
-        lighthouseUrl.addEventListener("change", lighthouseReportListener);
+        const lighthouseAgency = document.querySelector('#lighthouse-agency');
+        lighthouseAgency.addEventListener("change", agencyChangeListener);
 
         const lighthouseType = document.querySelector('#lighthouse-type');
-        lighthouseType.addEventListener("change", lighthouseReportListener);
+        lighthouseType.addEventListener("change", typeChangeListener);
 
         const lighthouseDate = document.querySelector('#lighthouse-date');
-        lighthouseDate.addEventListener("change", lighthouseReportListener);
+        lighthouseDate.addEventListener("change", dateChangeListener);
+
+        const lighthouseUrl = document.querySelector('#lighthouse-url');
+        lighthouseUrl.addEventListener("change", urlChangeListener);
 
         window.addEventListener("LighthouseUpdate", lighthouseUpdateListener);
       }
 
-      function lighthouseReportListener(event){
+      function agencyChangeListener(event){
+        fetchAvailableDates();
+        fetchAvailableReports();
         updateLighthouseReport();
       }
+
+      function typeChangeListener(event){
+        updateLighthouseReport();
+      }
+
+      function dateChangeListener(event){
+        fetchAvailableReports();
+      }
+
+      function urlChangeListener(event){
+        updateLighthouseReport();
+      }
+
+      // function lighthouseReportListener(event){
+      //   updateLighthouseReport();
+      // }
 
       function lighthouseUpdateListener(event){
         resetWcagReport();
@@ -74,7 +96,7 @@
       }
 
       function getBaseUrl(){
-        const baseUrl = "https://thirstyhead.com/unlighthouse-explorer/reports";
+        const baseUrl = document.querySelector('#lighthouse-agency').value; // cns, dod, etc.
         const reportType = document.querySelector('#lighthouse-type').value; // "mobile" or "desktop"
         const dateStamp = document.querySelector('#lighthouse-date').value; // "2023-07-25"
         return `${baseUrl}/${reportType}/${dateStamp}`;
@@ -85,16 +107,20 @@
        * based on form values in html page
        */
       function updateLighthouseReport(){
+        fetchAvailableDates();
+        fetchAvailableReports();
+
         // "https://thirstyhead.com/unlighthouse-explorer/reports/mobile/2023-07-25/reports";
         const baseUrl = getBaseUrl();
         const reportUrl = `${baseUrl}/reports`;
-
+        
         // change path from audited webpage to html lighthouse report
         let url = document.querySelector('#lighthouse-url').value; 
-        let path = url.replace('/index.html', '/index/lighthouse.html');
-        if(path == "/"){
-          path = "/index/lighthouse.html";
-        }
+        let path = `${url}/lighthouse.html`;
+        // let path = url.replace('/index.html', '/index/lighthouse.html');
+        // if(path == "/"){
+        //   path = "/index/lighthouse.html";
+        // }
 
         // load html lighthouse report in iframe
         const lighthouseReport = document.querySelector('#lighthouse-report');
@@ -135,6 +161,30 @@
         for(let page=0; page < reports.length; page++){
           select.appendChild(new Option(`${reports[page].path}`, `${reports[page].path}`));
         }
+      }
+
+      /**
+       * Fetches json list of all available reports by date
+       */ 
+      async function fetchAvailableDates(){
+        let baseUrl = getBaseUrl();
+        //strip off date stamp
+        let urlParts = baseUrl.split('/');
+        let dateStamp = urlParts.pop();
+        baseUrl = urlParts.join('/');
+        const reportUrl = `${baseUrl}/index.json`; 
+
+        const response = await fetch(reportUrl);
+        const dates = await response.json();        
+
+        const select = document.querySelector('#lighthouse-date');
+        select.innerHTML = "";
+        for(let i=0; i < dates.length; i++){
+          let date = dates[i].split('/').pop();
+          select.appendChild(new Option(`${date}`, `${date}`));
+        }
+
+        //get /reports/mobile/index.json
       }
 
       /**
@@ -719,6 +769,45 @@
       <h2>Lighthouse Report</h2>
       <fieldset>
         <legend>Choose Page</legend>
+
+        <label for="lighthouse-agency">Agency</label>
+        <select id="lighthouse-agency">
+          <option value="https://skywarditsolutions.github.io/508-cns-data/reports" selected>CNS - Americorps</option>
+          <option value="https://skywarditsolutions.github.io/508-dhs-data/reports">DHS - Dept. of Homeland Security</option>
+          <option value="https://skywarditsolutions.github.io/508-dod-data/reports">DOD - Dept. of Defense</option>
+          <option value="https://skywarditsolutions.github.io/508-doe-data/reports">DOE - Dept. of Energy</option>
+          <option value="https://skywarditsolutions.github.io/508-doi-data/reports">DOI - Dept. of the Interior</option>
+          <option value="https://skywarditsolutions.github.io/508-doj-data/reports">DOJ - Dept. of Justice</option>
+          <option value="https://skywarditsolutions.github.io/508-dol-data/reports">DOL - Dept. of Labor</option>
+          <option value="https://skywarditsolutions.github.io/508-dot-data/reports">DOT - Dept. of Transportation</option>
+          <option value="https://skywarditsolutions.github.io/508-ed-data/reports">ED - Dept. of Education</option>
+          <option value="https://skywarditsolutions.github.io/508-eeoc-data/reports">EEOC - Equal Employment Opportunity Commission</option>
+          <option value="https://skywarditsolutions.github.io/508-epa-data/reports">EPA - Environmental Protection Agency</option>
+          <option value="https://skywarditsolutions.github.io/508-fcc-data/reports">FCC - Federal Communications Commission</option>
+          <option value="https://skywarditsolutions.github.io/508-fdic-data/reports">FDIC - Federal Deposit Insurance Corporation</option>
+          <option value="https://skywarditsolutions.github.io/508-gsa-data/reports">GSA - General Services Administration</option>
+          <option value="https://skywarditsolutions.github.io/508-hhs-data/reports">HHS - Dept. of Health and Human Services</option>
+          <option value="https://skywarditsolutions.github.io/508-hud-data/reports">HUD - Dept. of Housing and Urban Development</option>
+          <option value="https://skywarditsolutions.github.io/508-nara-data/reports">NARA - National Archives and Records Administration</option>
+          <option value="https://skywarditsolutions.github.io/508-nasa-data/reports">NASA - National Aeronautics and Space Administration</option>
+          <option value="https://skywarditsolutions.github.io/508-ncua-data/reports">NCUA - National Credit Union Administration</option>
+          <option value="https://skywarditsolutions.github.io/508-nrc-data/reports">NRC - US Nuclear Regulatory Commission</option>
+          <option value="https://skywarditsolutions.github.io/508-nsf-data/reports">NSF - National Science Foundation</option>
+          <option value="https://skywarditsolutions.github.io/508-opm-data/reports">OPM - Office of Personnel Management</option>
+          <option value="https://skywarditsolutions.github.io/508-pbgc-data/reports">PBGC - Pension Benefit Guaranty Corporation</option>
+          <option value="https://skywarditsolutions.github.io/508-sba-data/reports">SBA - Small Business Administration</option>
+          <option value="https://skywarditsolutions.github.io/508-sec-data/reports">SEC - Securities and Exchange Commission</option>
+          <option value="https://skywarditsolutions.github.io/508-ssa-data/reports">SSA - Social Security Administration</option>
+          <option value="https://skywarditsolutions.github.io/508-state-data/reports">STATE - Dept. of State</option>
+          <option value="https://skywarditsolutions.github.io/508-treasury-data/reports">TREASURY - Dept. of Treasury</option>
+          <option value="https://skywarditsolutions.github.io/508-usab-data/reports">USAB - US Advisory Board</option>
+          <option value="https://skywarditsolutions.github.io/508-usaid-data/reports">USAID - US Agency of International Development</option>
+          <option value="https://skywarditsolutions.github.io/508-usda-data/reports">USDA - US Dept. of Agriculture</option>
+          <option value="https://skywarditsolutions.github.io/508-va-data/reports">VA - Dept. of Veterans Administration</option>
+        </select>
+        <br>
+
+
         <label for="lighthouse-type">Type</label>
         <select id="lighthouse-type">
           <option value="mobile" selected>Mobile</option>
@@ -727,16 +816,16 @@
         <br>       
 
         <label for="lighthouse-date">Date</label>
-        <input id="lighthouse-date"
-               type="text"
-               value="2023-07-25">
+        <select id="lighthouse-date">
+          <option value="2023-08-02" selected>2023-08-02</option>
+        </select>
         <br>
 
         <label for="lighthouse-url">URL</label>
         <select id="lighthouse-url"></select>
       </fieldset>
 
-      <iframe src="https://thirstyhead.com/unlighthouse-explorer/reports/mobile/2023-07-25/reports/lighthouse.html"
+      <iframe src=""
               id="lighthouse-report"
               width="100%"
               height="1000px"></iframe>
